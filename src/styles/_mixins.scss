@@ -1,0 +1,76 @@
+@use "/src/styles/variables.scss" as *;
+
+/*
+ * ==============================
+ * MIXINS
+ * ==============================
+ */
+
+/* Layout Mixins */
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Gradient Mixins */
+@mixin gradient-text($gradient) {
+  color: transparent;
+  background: $gradient;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@mixin gradient-text-colors($colors...) {
+  color: transparent;
+  background: linear-gradient($colors);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Effect Mixins */
+@mixin glow-effect($color, $opacity: 0.08) {
+  position: absolute;
+  top: -20%;
+  left: -20%;
+  z-index: 0;
+  width: 140%;
+  height: 140%;
+  background: radial-gradient(circle, rgba($color, $opacity) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Transition Mixins */
+@mixin transition($properties...) {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@mixin media-mobile {
+  :global(.media-mobile) & {
+    @content;
+  }
+}
+
+/* Combined font style for buttons and similar UI elements */
+@mixin font-btn {
+  font-size: $font-size-btn;
+  font-weight: $font-weight-boldest;
+}
+
+@mixin font-btn-large {
+  font-size: $font-size-btn-large;
+  font-weight: $font-weight-boldest;
+}
+
+// Font style for currency values (large, bold, readable for game UI)
+@mixin font-currency {
+  font-family: $font-family-primary;
+  font-size: $font-size-lg;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}

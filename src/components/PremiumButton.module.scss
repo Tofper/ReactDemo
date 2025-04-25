@@ -1,0 +1,61 @@
+// Shared variables for colors and shadows
+$color-btn-text: #2d2100;
+$color-btn-bg-top: #f5cd3d;
+$color-btn-bg-bottom: #e6b31e;
+$color-btn-shadow: #c77700;
+$color-btn-shadow-hover: #e08803;
+$color-btn-shadow-disabled: #666;
+$color-btn-bg-disabled-top: #aaa;
+$color-btn-bg-disabled-bottom: #888;
+
+// Mixin for button box-shadow
+@mixin btn-shadow($y, $color, $blur, $alpha: 0.3) {
+  box-shadow: 0 #{$y}px 0 #{$color}, 0 #{$y}px #{$blur}px rgba(0, 0, 0, $alpha);
+}
+
+.premium-button {
+  position: relative;
+  width: 100%;
+  height: 49px;
+
+  @include font-btn-large;
+
+  letter-spacing: 1px;
+  text-align: center;
+  text-transform: uppercase;
+  color: $color-btn-text;
+  background: linear-gradient(to bottom, $color-btn-bg-top, $color-btn-bg-bottom);
+  border: none;
+  border-radius: 8px 8px 16px 16px;
+
+  @include btn-shadow(4, $color-btn-shadow, 12, 0.3);
+
+  transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+  cursor: pointer;
+  user-select: none;
+
+  &:disabled {
+    color: $color-btn-shadow-disabled;
+    background: linear-gradient(to bottom, $color-btn-bg-disabled-top, $color-btn-bg-disabled-bottom);
+    opacity: 0.8;
+    transform: none;
+    cursor: default;
+    filter: none;
+
+    @include btn-shadow(4, $color-btn-shadow-disabled, 12, 0.2);
+  }
+
+  &--hovered {
+    @include btn-shadow(4, $color-btn-shadow-hover, 12, 0.3);
+
+    filter: brightness(1.05);
+  }
+
+  &--pressed {
+    transform: translateY(2px);
+
+    @include btn-shadow(2, $color-btn-shadow-disabled, 6, 0.2);
+
+    filter: none;
+  }
+}

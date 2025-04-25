@@ -1,0 +1,393 @@
+@use "sass:color";
+
+// Card block
+.card {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  height: 320px;
+  margin: 24px;
+  padding: 0;
+  background: none;
+  border: none;
+
+  &--locked {
+    pointer-events: none;
+  }
+
+  &__border {
+    position: relative;
+    display: flex;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    padding: $spacing-xs;
+    background: $gradient-card-border;
+    border-radius: $radius-xl;
+    box-shadow: $shadow-card;
+  }
+
+  &__glow {
+    @include glow-effect(#fff, 0.05);
+
+    animation: rotate 20s linear infinite;
+
+    &--gems, &--tokens {
+      animation: rotate 20s linear infinite;
+    }
+
+    &--gems {
+      @include glow-effect($color-reward-gems, 0.08);
+    }
+
+    &--tokens {
+      @include glow-effect($color-reward-tokens, 0.08);
+    }
+  }
+
+  &--current {
+    z-index: 10;
+    transform: scale(1.03);
+
+    .card__border {
+      background: $gradient-card-border;
+      border: 2px solid $color-reward-coins;
+      box-shadow: $shadow-card;
+    }
+
+    .card__glow {
+      background: none;
+    }
+  }
+
+  @include media-mobile {
+    width: 100px !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    margin: 4px !important;
+  }
+
+  &__bottom-darkening,
+  &__inner-darkening {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    height: 90%;
+    background: linear-gradient(0deg, rgb(40 40 40 / 55%) 20%, transparent 100%);
+    border-radius: $radius-xl;
+    pointer-events: none;
+  }
+
+  &__inner-darkening {
+    z-index: auto;
+  }
+
+  &__bevel-highlight,
+  &__bevel-highlight-inner,
+  &__bevel-shadow {
+    position: absolute;
+    z-index: 2;
+    border-radius: $radius-xl;
+    opacity: 0.4;
+    pointer-events: none;
+    inset: 0;
+  }
+
+  &__bevel-highlight {
+    border: 1.5px solid rgb(255 255 255 / 40%);
+    border-left-width: 1px;
+    border-right-width: 1px;
+  }
+
+  &__bevel-highlight-inner {
+    border: 3px solid rgb(255 255 255 / 40%);
+    inset: $spacing-xs;
+  }
+
+  &__bevel-shadow {
+    opacity: 0.3;
+    border-bottom: 1.5px solid rgb(34 34 34 / 80%);
+    border-left: 1.5px solid transparent;
+    border-right: 1.5px solid transparent;
+    border-top: 1.5px solid transparent;
+  }
+
+  &__inner {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    color: #fff;
+    background: $gradient-card-inner;
+    border-radius: $radius-lg;
+    box-shadow: inset 0 2px 12px 0 rgb(0 0 0 / 33%), 0 1px 0 rgb(255 255 255 / 4%);
+    overflow: hidden;
+  }
+
+  &__content-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    pointer-events: none;
+    align-self: center;
+  }
+
+  &__divider {
+    position: absolute;
+    bottom: 58px;
+    width: 160px;
+    height: 1px;
+    margin: 0 auto;
+    background: linear-gradient(90deg, rgb(255 255 255 / 20%) 0%, rgb(255 255 255 / 53%) 50%, rgb(255 255 255 / 20%) 100%);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 13%);
+    opacity: 0.5;
+  }
+
+  &__button-container {
+    position: absolute;
+    bottom: 6px;
+    left: 50%;
+    width: 100%;
+    transform: translateX(-50%);
+  }
+}
+
+// Card header block
+.card-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 2px;
+  padding: $spacing-md $spacing-sm;
+  background: #444;
+  border-radius: $radius-lg $radius-lg $radius-md $radius-md;
+  box-shadow: inset 0 -2px 9px rgb(88 87 79 / 99%);
+
+  &--locked {
+    background: #333;
+    box-shadow: inset 0 -2px 9px rgb(60 60 60 / 80%);
+    opacity: 0.8;
+  }
+
+  &--claimed {
+    background: linear-gradient(to bottom, #3a5a3a, #2c422c);
+    box-shadow: inset 0 -2px 9px rgb(30 50 30 / 90%);
+  }
+
+  &__day {
+    font-size: $font-size-md;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-shadow: $shadow-text;
+    color: $color-text-light;
+    user-select: none;
+
+    &--locked {
+      text-shadow: 0 1px 2px rgb(0 0 0 / 80%);
+      color: $color-locked;
+      opacity: 0.7;
+    }
+
+    &--claimed {
+      text-shadow: 0 0 10px rgb(120 255 120 / 40%), 0 2px 4px rgb(0 0 0 / 67%);
+      color: #a8e6a8;
+    }
+  }
+}
+
+// Reward block
+.reward {
+  position: relative;
+  display: inline-block;
+  width: 180px;
+  height: 100px;
+  margin-bottom: 0;
+
+  &__shadow, &__gradient, &__highlight {
+    font-size: $font-size-xxl;
+    font-weight: bold;
+    letter-spacing: 0;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  &__shadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    color: black;
+    transform: translate(53px, 3px);
+    filter: blur(2px);
+  }
+
+  &__gradient {
+    position: relative;
+    z-index: 1;
+
+    @include gradient-text-colors(
+      $color-reward-coins 20%,
+      color.adjust($color-reward-coins, $lightness: -20%) 50%,
+      color.adjust($color-reward-coins, $lightness: -40%) 90%
+    );
+
+    &--locked {
+      @include gradient-text-colors(
+        $color-locked 20%,
+        color.adjust($color-locked, $lightness: -10%) 50%,
+        color.adjust($color-locked, $lightness: -20%) 90%
+      );
+
+      opacity: 0.6;
+    }
+
+    &--gems {
+      @include gradient-text-colors(
+        $color-reward-gems 20%,
+        color.adjust($color-reward-gems, $lightness: -20%) 50%,
+        color.adjust($color-reward-gems, $lightness: -40%) 90%
+      );
+    }
+
+    &--tokens {
+      @include gradient-text-colors(
+        $color-reward-tokens 20%,
+        color.adjust($color-reward-tokens, $lightness: -20%) 50%,
+        color.adjust($color-reward-tokens, $lightness: -40%) 90%
+      );
+    }
+  }
+
+  &__highlight {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    color: transparent;
+    background: radial-gradient(ellipse at center, rgb(255 255 255 / 30%) 40%, transparent 20%);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  &__amount {
+    margin-bottom: $spacing-sm;
+    font-size: $font-size-xl;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-shadow: none;
+
+    @include gradient-text-colors(
+      color.adjust($color-reward-coins, $lightness: 10%) 60%,
+      color.adjust($color-reward-coins, $lightness: -40%) 100%
+    );
+
+    &--locked {
+      @include gradient-text-colors(
+        $color-locked 60%,
+        color.adjust($color-locked, $lightness: -20%) 100%
+      );
+
+      opacity: 0.6;
+    }
+
+    &--gems {
+      @include gradient-text-colors(
+        color.adjust($color-reward-gems, $lightness: 30%) 60%,
+        color.adjust($color-reward-gems, $lightness: -30%) 100%
+      );
+    }
+
+    &--tokens {
+      @include gradient-text-colors(
+        color.adjust($color-reward-tokens, $lightness: 20%) 60%,
+        color.adjust($color-reward-tokens, $lightness: -30%) 100%
+      );
+    }
+  }
+}
+
+// Status text block
+.status-text {
+  padding: $spacing-sm 0;
+  font-size: $font-size-md;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: 0 1px 2px rgb(0 0 0 / 50%);
+  pointer-events: none;
+  user-select: none;
+
+  @include gradient-text-colors(#adadad 0%, #6d6d6d 100%);
+}
+
+// Icon block
+.icon {
+  margin-top: $spacing-md;
+  color: $color-reward-coins;
+  filter: drop-shadow(0 2px 3px rgb(0 0 0 / 50%));
+
+  &--locked, &--gems, &--tokens {
+    margin-top: $spacing-md;
+  }
+
+  &--locked {
+    color: $color-locked;
+    opacity: 0.7;
+    filter: drop-shadow(0 1px 2px rgb(0 0 0 / 30%));
+  }
+
+  &--gems {
+    color: $color-reward-gems;
+    filter: drop-shadow(0 2px 10px rgba($color-reward-gems, 0.5));
+  }
+
+  &--tokens {
+    color: $color-reward-tokens;
+    filter: drop-shadow(0 2px 10px rgba($color-reward-tokens, 0.5));
+  }
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.claim-status {
+  @include flex-center;
+
+  width: 100%;
+
+  &__text {
+    @include font-btn;
+
+    margin-right: $spacing-sm;
+  }
+
+  &__icon {
+    position: relative;
+    top: -1px;
+    font-size: $font-size-sm;
+    color: #84da4b;
+    filter: drop-shadow(0 1px 1px rgb(0 0 0 / 50%));
+  }
+}

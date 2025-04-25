@@ -1,0 +1,129 @@
+@use "/src/styles/variables.scss" as *;
+@use "/src/styles/mixins.scss" as *;
+
+// --- Main Reroll Button ---
+.rewards-reroll {
+  position: absolute;
+  right: $spacing-lg;
+  bottom: $spacing-lg;
+  z-index: 20;
+
+  @include flex-center;
+
+  flex-direction: row;
+  min-width: 120px;
+  height: 38px;
+  padding: 0 10px;
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  color: $color-text;
+  background: $gradient-button-primary;
+  border: none;
+  border-radius: $radius-md;
+  box-shadow: $shadow-button;
+  cursor: pointer;
+  user-select: none;
+  gap: 1px;
+
+  // Use transition mixin for smooth state changes
+  @include transition(background, box-shadow, transform);
+
+  &--pressed {
+    background: $gradient-button-pressed;
+    box-shadow: $shadow-button-pressed;
+    transform: scale(0.97);
+  }
+
+  &--hovered:not(&--pressed) {
+    box-shadow: $shadow-button-hover;
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  &__label {
+    @include flex-center;
+    @include font-btn;
+
+    line-height: 1;
+    letter-spacing: 1px;
+    color: $color-text;
+  }
+
+  &__dice-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-bottom: 5px;
+  }
+
+  &__dice {
+    @include flex-center;
+
+    position: relative;
+    width: 14px;
+    height: 14px;
+    background: #fff;
+    border: 1.2px solid #222;
+    border-radius: 3px;
+    box-shadow: 0 1px 4px rgb(0 0 0 / 15%);
+  }
+
+  &__dice-anim {
+    animation: rewards-dice-bounce-roll .9s cubic-bezier(.36,.07,.19,.97) both;
+  }
+}
+
+.rewards-reroll__pip {
+  position: absolute;
+  width: 2.5px;
+  height: 2.5px;
+  background: #222;
+  border-radius: 50%;
+  opacity: 1;
+
+  &--tl {
+    top: 2px;
+    left: 2px;
+  }
+
+  &--tr {
+    top: 2px;
+    right: 2px;
+  }
+
+  &--bl {
+    bottom: 2px;
+    left: 2px;
+  }
+
+  &--br {
+    right: 2px;
+    bottom: 2px;
+  }
+
+  &--c {
+    top: 5.75px;
+    left: 5.75px;
+  }
+}
+
+// --- Dice Animation Keyframes ---
+@keyframes rewards-dice-bounce-roll {
+  0%   { transform: translate(0, 0) rotate(0deg) scale(1); }
+  8%   { transform: translate(8px, -5px) rotate(40deg) scale(1.10); }
+  16%  { transform: translate(14px, -8px) rotate(80deg) scale(1.13); }
+  24%  { transform: translate(20px, -4px) rotate(120deg) scale(1.15); }
+  32%  { transform: translate(14px, -0) rotate(160deg) scale(1.13); }
+  48%  { transform: translate(11px, -2px) rotate(110deg) scale(1.09); }
+  64%  { transform: translate(7px, 0) rotate(70deg) scale(1.04); }
+  80%  { transform: translate(2px, -2px) rotate(30deg) scale(1.01); }
+  88%  { transform: translate(0, 0) rotate(15deg) scale(1.00); }
+  100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+}
+
+// --- End Keyframes ---

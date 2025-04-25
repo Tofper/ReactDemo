@@ -1,0 +1,103 @@
+.daily-rewards-screen {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  min-height: 100vh;
+  font-family: $font-family-primary;
+  background: $color-background;
+  overflow: hidden;
+
+  // Currency display in top right
+  &__currency-display {
+    position: absolute;
+    top: $spacing-sm;
+    right: $spacing-sm;
+    z-index: 10;
+  }
+
+  // Main content area
+  &__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  // Title styling
+  &__title-wrapper {
+    display: inline-block;
+    margin: $spacing-sm 0;
+    font-size: $font-size-xxl;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-align: center;
+    text-transform: uppercase;
+    user-select: none;
+  }
+
+  &__title-main {
+    text-shadow: 0 3px 12px #0007, 0 1.5px 0 #b89b3a;
+    color: $color-text-light;
+  }
+
+  &__title-accent {
+    text-shadow: 0 3px 12px #000a, 0 1.5px 0 #b89b3a;
+    color: $color-reward-coins;
+  }
+
+  &__title-underline {
+    width: 100%;
+    height: 5px;
+    margin: -10px auto 0;
+    background: linear-gradient(90deg, $color-text-light 0%, $color-reward-coins 100%);
+    border-radius: 2px;
+    box-shadow: 0 3px 12px #0007, 0 1.5px 0 #b89b3a;
+    opacity: 0.95;
+  }
+
+  // Cards row
+  &__cards-row {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  // Card shadow row
+  &__cards-shadow-row {
+    z-index: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 420px;
+    height: 32px;
+    margin-top: -12px;
+    pointer-events: none;
+  }
+
+  &__card-shadow {
+    width: 120px;
+    height: 11px;
+    margin: 0 20px;
+    background: radial-gradient(ellipse at center, #222b 60%, #0000 100%);
+    border-radius: 50%;
+    opacity: 0.7;
+    filter: blur(0.5px);
+  }
+
+  // Reroll info
+  &__reroll-info {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    text-shadow: 0 1px 2px #0003;
+    color: $color-text-light;
+    opacity: 0.4;
+    gap: $spacing-sm;
+  }
+}

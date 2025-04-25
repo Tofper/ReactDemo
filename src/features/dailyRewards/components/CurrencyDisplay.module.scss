@@ -1,0 +1,46 @@
+.currency-display {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: $spacing-xs-half $spacing-md;
+  background: linear-gradient(
+    to bottom,
+    rgb(32 32 48 / 95%) 0%,
+    rgb(9 9 17 / 85%) 60%,
+    rgb(9 9 19 / 0%) 100%
+  );
+  border-radius: $radius-sm;
+  overflow: hidden;
+  gap: $spacing-sm;
+
+  &__label {
+    margin-right: $spacing-sm;
+
+    @include font-btn;
+
+    line-height: 1;
+    letter-spacing: 1px;
+    text-shadow: $shadow-text;
+    color: $color-text-light;
+    user-select: none;
+  }
+
+  &__currency {
+    margin: 0;
+
+    @include font-currency;
+
+    user-select: none;
+
+    &--coins {
+      @include gradient-text($gradient-gold);
+
+      margin-right: $spacing-lg;
+    }
+
+    &--gems {
+      @include gradient-text($gradient-blue);
+    }
+  }
+}
